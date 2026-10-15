@@ -4,32 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>ColorGen</title>
 
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: #f4f4f4;
-            padding: 40px 20px;
-            transition: background-color 0.4s;
+            background-color: #f4f4f4;
+            color: #222;
+            padding: 35px 15px;
+            margin: 0;
         }
 
         h1 {
             font-size: 40px;
+            margin-bottom: 10px;
         }
 
         p {
-            font-size: 18px;
+            font-size: 17px;
         }
 
         #colorBox {
             width: 280px;
             height: 220px;
             max-width: 90%;
-            margin: 30px auto;
+            margin: 25px auto;
             border-radius: 15px;
-            background: #3498db;
+            background-color: #3498db;
             color: white;
             display: flex;
             justify-content: center;
@@ -40,17 +43,72 @@
         }
 
         button {
-            background: #222;
-            color: white;
-            padding: 15px 25px;
+            padding: 12px 20px;
+            margin: 5px;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
+            background-color: #222;
+            color: white;
+            font-size: 15px;
             cursor: pointer;
+            transition: background-color 0.2s;
         }
 
         button:hover {
-            background: #444;
+            background-color: #444;
+        }
+
+        .favorite-button {
+            background-color: #e74c3c;
+        }
+
+        .favorite-button:hover {
+            background-color: #c0392b;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        #favorites {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px auto;
+            max-width: 650px;
+        }
+
+        .favorite-card {
+            width: 135px;
+            padding: 10px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #0001;
+        }
+
+        .favorite-swatch {
+            height: 75px;
+            border-radius: 7px;
+            margin-bottom: 8px;
+        }
+
+        .favorite-card p {
+            font-size: 14px;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+
+        .favorite-card button {
+            font-size: 12px;
+            padding: 8px;
+            margin: 3px 0;
+            width: 100%;
+        }
+
+        #message {
+            font-size: 15px;
+            min-height: 20px;
         }
     </style>
 </head>
@@ -66,9 +124,33 @@
         Generate Your Random Color
     </button>
 
+    <div>
+        <button onclick="copyColor()">📋 Copy Color</button>
+        <button class="favorite-button" onclick="addFavorite()">
+            ❤️ Add to Favorites
+        </button>
+    </div>
+
     <p id="message">Click the button to get started!</p>
 
+    <h2>❤️ My Favorite Colors</h2>
+    <p>Your saved colors will appear here.</p>
+
+    <div id="favorites"></div>
+
     <script>
+        let currentColor = "#3498DB";
+        let favorites = [];
+
+        // Load saved favorites when the website opens
+        try {
+            favorites = JSON.parse(
+                localStorage.getItem("colorgenFavorites")
+            ) || [];
+        } catch (error) {
+            favorites = [];
+        }
+
         function generateColor() {
             const letters = "0123456789ABCDEF";
             let color = "#";
@@ -77,14 +159,105 @@
                 color += letters[Math.floor(Math.random() * 16)];
             }
 
+            currentColor = color;
+
             document.getElementById("colorBox").style.backgroundColor = color;
             document.getElementById("colorBox").textContent = color;
-            document.body.style.backgroundColor = color;
             document.getElementById("message").textContent =
                 "Your new color is " + color + "!";
+
+            document.body.style.backgroundColor = color + "15";
         }
+
+        async function copyColor() {
+            try {
+                await navigator.clipboard.writeText(currentColor);
+                document.getElementById("message").textContent =
+                    currentColor + " copied to clipboard!";
+            } catch (error) {
+                document.getElementById("message").textContent =
+                    "Copy is not available here. Color: " + currentColor;
+            }
+        }
+
+        function addFavorite() {
+            if (favorites.includes(currentColor)) {
+                document.getElementById("message").textContent =
+                    "This color is already in your favorites!";
+                return;
+            }
+
+            favorites.push(currentColor);
+            saveFavorites();
+            showFavorites();
+
+            document.getElementById("message").textContent =
+                currentColor + " added to favorites!";
+        }
+
+        function removeFavorite(color) {
+            favorites = favorites.filter(item => item !== color);
+            saveFavorites();
+            showFavorites();
+
+            document.getElementById("message").textContent =
+                color + " removed from favorites.";
+        }
+
+        function saveFavorites() {
+            try {
+                localStorage.setItem(
+                    "colorgenFavorites",
+                    JSON.stringify(favorites)
+                );
+            } catch (error) {
+                document.getElementById("message").textContent =
+                    "Could not save favorites in this browser.";
+            }
+        }
+
+        function showFavorites() {
+            const favoritesBox = document.getElementById("favorites");
+            favoritesBox.innerHTML = "";
+
+            if (favorites.length === 0) {
+                favoritesBox.textContent = "No favorite colors yet!";
+                return;
+            }
+
+            favorites.forEach(color => {
+                const card = document.createElement("div");
+                card.className = "favorite-card";
+
+                const swatch = document.createElement("div");
+                swatch.className = "favorite-swatch";
+                swatch.style.backgroundColor = color;
+
+                const label = document.createElement("p");
+                label.textContent = color;
+
+                const copyButton = document.createElement("button");
+                copyButton.textContent = "📋 Copy";
+                copyButton.onclick = () => {
+                    currentColor = color;
+                    copyColor();
+                };
+
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "Remove";
+                removeButton.onclick = () => removeFavorite(color);
+
+                card.appendChild(swatch);
+                card.appendChild(label);
+                card.appendChild(copyButton);
+                card.appendChild(removeButton);
+
+                favoritesBox.appendChild(card);
+            });
+        }
+
+        showFavorites();
     </script>
 
 </body>
 </html>
-
