@@ -4,126 +4,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ColorGen — Color Beyond Limits</title>
+<title>ColorGen — Discover Your Color</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 :root {
   --bg: #080811;
-  --panel: rgba(255,255,255,.055);
-  --border: rgba(255,255,255,.11);
-  --muted: #9999b4;
-  --accent: #9b7bff;
+  --panel: #11111f;
+  --text: #f7f7ff;
+  --muted: #9292ad;
+  --purple: #a855f7;
+  --blue: #6366f1;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  margin: 0;
   min-height: 100vh;
-  background: var(--bg);
-  color: #fff;
-  font-family: Inter, Arial, sans-serif;
-  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(ellipse at 15% 0%, #30104d55, transparent 45%),
+    radial-gradient(ellipse at 90% 20%, #101b5555, transparent 40%),
+    var(--bg);
+  color: var(--text);
+  padding: 28px 20px 50px;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  width: 650px;
-  height: 650px;
-  top: -300px;
-  left: -180px;
-  background: #703cff;
-  filter: blur(170px);
-  opacity: .18;
-  pointer-events: none;
+button {
+  font: inherit;
+  cursor: pointer;
 }
 
-body::after {
-  content: "";
-  position: fixed;
-  width: 550px;
-  height: 550px;
-  right: -250px;
-  bottom: -280px;
-  background: #00bfff;
-  filter: blur(170px);
-  opacity: .13;
-  pointer-events: none;
+.container {
+  max-width: 1050px;
+  margin: auto;
 }
 
-button { font: inherit; }
-
-.nav {
-  height: 78px;
-  padding: 0 7%;
+nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgba(255,255,255,.07);
-  position: relative;
-  z-index: 2;
+  margin-bottom: 75px;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 11px;
+  font-size: 25px;
   font-weight: 900;
-  font-size: 22px;
   letter-spacing: -1px;
 }
 
-.logo-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 11px;
-  background: conic-gradient(#ff5eae, #ffdb70, #64f4cb, #6b7cff, #bd67ff, #ff5eae);
-  box-shadow: 0 0 22px #9b7bff55;
+.logo span {
+  color: #bd76ff;
 }
 
-.nav-tag {
-  color: var(--muted);
+.status {
+  color: #c4b5fd;
   font-size: 12px;
-  letter-spacing: 1.5px;
+  border: 1px solid #8b5cf644;
+  background: #8b5cf615;
+  padding: 9px 13px;
+  border-radius: 30px;
 }
 
-main {
-  max-width: 1050px;
-  padding: 65px 24px 80px;
-  margin: auto;
-  position: relative;
-  z-index: 1;
+.hero {
+  text-align: center;
+  margin-bottom: 40px;
 }
-
-.hero { text-align: center; }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 13px;
-  border: 1px solid var(--border);
-  background: #ffffff08;
-  color: #c5b7ff;
-  border-radius: 100px;
-  font-size: 11px;
+  color: #c4a1ff;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
 }
 
 h1 {
-  font-size: clamp(42px, 7vw, 76px);
-  line-height: 1.04;
+  font-size: clamp(38px, 7vw, 76px);
+  line-height: 1.05;
   letter-spacing: -4px;
-  margin: 23px 0 16px;
   font-weight: 900;
+  margin-bottom: 20px;
 }
 
 .gradient-text {
-  background: linear-gradient(95deg, #bba3ff, #7fdcff, #ff9de0);
+  background: linear-gradient(90deg, #c084fc, #818cf8, #f0abfc);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -131,254 +102,180 @@ h1 {
 
 .subtitle {
   color: var(--muted);
-  font-size: 15px;
   line-height: 1.8;
-  max-width: 490px;
-  margin: 0 auto;
+  font-size: 15px;
 }
 
 .generator {
-  max-width: 750px;
-  margin: 42px auto 0;
-  padding: 15px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.035);
+  max-width: 790px;
+  margin: 0 auto;
+  padding: 14px;
   border-radius: 28px;
-  box-shadow: 0 30px 100px #0006;
-  backdrop-filter: blur(15px);
+  background: #ffffff07;
+  border: 1px solid #ffffff14;
+  box-shadow: 0 25px 100px #0006;
+  backdrop-filter: blur(20px);
 }
 
-.preview {
-  min-height: 285px;
+.color-preview {
+  height: 300px;
   border-radius: 19px;
   background: #8b5cf6;
   position: relative;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   transition: background .4s ease;
 }
 
-.preview::before {
+.color-preview::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #ffffff28, transparent 48%, #00000015);
-}
-
-.preview::after {
-  content: "";
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  border: 1px solid #ffffff25;
-  border-radius: 50%;
-  box-shadow: 0 0 0 40px #ffffff08, 0 0 0 80px #ffffff05;
-}
-
-.preview-content {
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 2px 20px #0004;
+  background: linear-gradient(135deg, #ffffff30, transparent 45%, #00000020);
+  pointer-events: none;
 }
 
 .preview-label {
-  font-size: 10px;
-  letter-spacing: 3px;
-  font-weight: 800;
-  margin-bottom: 12px;
-}
-
-#hexCode {
-  font-size: clamp(38px, 7vw, 61px);
-  letter-spacing: -2px;
-  font-weight: 900;
-  cursor: pointer;
-}
-
-.preview-hint {
-  font-size: 11px;
-  margin-top: 12px;
-  opacity: .85;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 14px;
+  background: #00000030;
+  backdrop-filter: blur(10px);
+  border: 1px solid #ffffff35;
+  border-radius: 12px;
+  font-size: 12px;
+  color: white;
 }
 
 .color-info {
+  padding: 24px 12px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 20px 7px 15px;
-  text-align: left;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-.info-label {
-  color: var(--muted);
-  font-size: 10px;
-  letter-spacing: 1.4px;
-  margin-bottom: 6px;
-}
-
-#colorName {
-  font-weight: 800;
-  font-size: 16px;
-}
-
-#rgbCode {
+.label {
   color: var(--muted);
   font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.hex {
+  font-size: 35px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  font-family: monospace;
+}
+
+.color-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  padding: 13px 17px;
+  color: white;
+  background: #ffffff0b;
+  transition: transform .2s, background .2s;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  background: #ffffff18;
+}
+
+.primary {
+  border: none;
+  background: linear-gradient(110deg, #9333ea, #6366f1);
+  box-shadow: 0 5px 25px #8b5cf633;
+}
+
+.primary:hover {
+  background: linear-gradient(110deg, #a855f7, #818cf8);
+}
+
+.favorite {
+  color: #f0abfc;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 45px 0 17px;
+}
+
+.section-heading h2 {
+  font-size: 17px;
+}
+
+.section-heading p {
+  font-size: 12px;
+  color: var(--muted);
   margin-top: 5px;
 }
 
-.small-btn {
-  background: #ffffff0a;
-  border: 1px solid var(--border);
-  color: white;
-  border-radius: 12px;
-  padding: 12px 15px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 700;
-  transition: .2s;
-}
-
-.small-btn:hover {
-  background: #ffffff18;
-  transform: translateY(-2px);
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.generate {
-  flex: 1 1 260px;
-  border: none;
-  border-radius: 13px;
-  padding: 17px 18px;
-  color: white;
-  font-size: 14px;
-  font-weight: 800;
-  cursor: pointer;
-  background: linear-gradient(100deg, #8757ff, #5865f2, #a84dff);
-  background-size: 200% 100%;
-  box-shadow: 0 5px 30px #845aff35;
-  transition: .25s;
-}
-
-.generate:hover {
-  background-position: 100% 0;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 38px #845aff60;
-}
-
-.favorite-btn { color: #ff9bcb; }
-
-.section {
-  margin-top: 55px;
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-h2 {
-  margin: 0;
-  font-size: 20px;
-  letter-spacing: -.6px;
-}
-
-.section-description {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 7px;
-}
-
-.palette {
+.swatches {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 13px;
 }
 
 .swatch {
-  min-width: 0;
-  cursor: pointer;
-  border: 1px solid var(--border);
-  padding: 0;
   background: var(--panel);
-  border-radius: 14px;
-  overflow: hidden;
-  color: white;
+  border: 1px solid #ffffff12;
+  padding: 7px;
+  border-radius: 15px;
   text-align: left;
-  transition: transform .2s, border-color .2s;
+  color: white;
+  transition: transform .2s;
 }
 
 .swatch:hover {
   transform: translateY(-4px);
-  border-color: #ffffff55;
 }
 
 .swatch-color {
   display: block;
-  height: 90px;
+  width: 100%;
+  height: 75px;
+  border-radius: 9px;
+  margin-bottom: 10px;
 }
 
-.swatch-label {
+.swatch-code {
   display: block;
-  padding: 11px 9px;
+  font-family: monospace;
   font-size: 11px;
-  font-weight: 800;
-  overflow-wrap: anywhere;
-}
-
-.swatch-label small {
-  display: block;
-  color: var(--muted);
-  font-weight: 400;
-  margin-top: 5px;
+  padding: 0 3px 4px;
 }
 
 .empty {
-  color: var(--muted);
-  border: 1px dashed #ffffff22;
-  padding: 25px;
-  text-align: center;
-  border-radius: 14px;
-  font-size: 13px;
   grid-column: 1 / -1;
-}
-
-.favorites {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.remove-fav {
-  display: block;
-  border: 0;
-  background: transparent;
-  color: #ff9bcb;
-  cursor: pointer;
-  padding: 0 9px 11px;
-  font-size: 11px;
-}
-
-.footer {
-  border-top: 1px solid #ffffff12;
-  padding-top: 25px;
-  margin-top: 65px;
   text-align: center;
+  color: var(--muted);
+  padding: 25px;
+  border: 1px dashed #ffffff20;
+  border-radius: 15px;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 65px;
   color: #77778f;
-  font-size: 11px;
-  letter-spacing: .5px;
+  font-size: 12px;
+}
+
+footer span {
+  color: #c084fc;
 }
 
 .toast {
@@ -386,16 +283,16 @@ h2 {
   bottom: 25px;
   left: 50%;
   transform: translate(-50%, 20px);
+  background: #202033;
+  color: white;
+  border: 1px solid #ffffff20;
+  border-radius: 12px;
+  padding: 13px 18px;
   opacity: 0;
-  background: #222233;
-  border: 1px solid #ffffff22;
-  padding: 13px 19px;
-  border-radius: 13px;
-  font-size: 13px;
   pointer-events: none;
   transition: .25s;
+  font-size: 13px;
   z-index: 10;
-  box-shadow: 0 10px 40px #0008;
 }
 
 .toast.show {
@@ -404,352 +301,177 @@ h2 {
 }
 
 @media (max-width: 600px) {
-  .nav { padding: 0 20px; height: 65px; }
-  .nav-tag { font-size: 9px; }
-  main { padding: 48px 16px 55px; }
+  body { padding: 20px 14px 35px; }
+  nav { margin-bottom: 55px; }
   h1 { letter-spacing: -2px; }
-  .generator { padding: 9px; border-radius: 20px; }
-  .preview { min-height: 235px; }
-  .color-info { padding: 17px 4px 13px; }
-  .palette, .favorites { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .swatch-color { height: 75px; }
-  .section { margin-top: 40px; }
-  .generate { flex-basis: 100%; }
+  .color-preview { height: 220px; }
+  .hex { font-size: 29px; }
+  .swatches { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .color-info { align-items: flex-start; }
+  .color-actions { width: 100%; }
+  .color-actions .btn { flex: 1; }
 }
 </style>
 </head>
 
 <body>
+<div class="container">
 
-<header class="nav">
-  <div class="logo">
-    <div class="logo-icon"></div>
-    ColorGen
-  </div>
-  <div class="nav-tag">COLOR BEYOND LIMITS ✦</div>
-</header>
+  <nav>
+    <div class="logo">Color<span>Gen.</span> ✦</div>
+    <div class="status">✦ YOUR DAILY COLOR LAB</div>
+  </nav>
 
-<main>
-  <section class="hero">
-    <div class="eyebrow">✦ YOUR CREATIVE COLOR LAB</div>
-    <h1>Discover a <span class="gradient-text">new color.</span></h1>
+  <header class="hero">
+    <p class="eyebrow">A little color. A lot of creativity.</p>
+    <h1>Discover your<br><span class="gradient-text">next favorite color.</span></h1>
     <p class="subtitle">
-      One click. Infinite possibilities.
-      Find colors you love, build your palette and make something amazing.
+      One click. Infinite possibilities.<br>
+      Generate beautiful random colors and save your favorites.
     </p>
-  </section>
+  </header>
 
-  <section class="generator">
-    <div class="preview" id="preview">
-      <div class="preview-content">
-        <div class="preview-label">YOUR COLOR. YOUR WORLD.</div>
-        <div id="hexCode" title="Click to copy">#8B5CF6</div>
-        <div class="preview-hint">CLICK THE HEX CODE TO COPY ↗</div>
-      </div>
+  <main class="generator">
+    <div class="color-preview" id="preview">
+      <div class="preview-label">✦ YOUR NEW COLOR</div>
     </div>
 
     <div class="color-info">
       <div>
-        <div class="info-label">COLOR DISCOVERED</div>
-        <div id="colorName">Electric Violet</div>
-        <div id="rgbCode">RGB 139, 92, 246</div>
+        <p class="label">YOUR COLOR CODE</p>
+        <div class="hex" id="hex">#8B5CF6</div>
       </div>
-      <button class="small-btn" onclick="copyColor()">▣ Copy HEX</button>
-    </div>
 
-    <div class="actions">
-      <button class="generate" onclick="generateColor()">
-        ✦ &nbsp; Generate Your Random Color
-      </button>
-      <button class="small-btn favorite-btn" onclick="addFavorite()">
-        ♡ &nbsp; Save Color
-      </button>
+      <div class="color-actions">
+        <button class="btn" id="copy">▢ Copy color</button>
+        <button class="btn favorite" id="save">♡ Save</button>
+        <button class="btn primary" id="generate">✦ Generate color</button>
+      </div>
     </div>
-  </section>
+  </main>
 
-  <section class="section">
-    <div class="section-head">
+  <section>
+    <div class="section-heading">
       <div>
-        <h2>✧ Color Harmony</h2>
-        <div class="section-description">Five colors for your next big idea.</div>
+        <h2>♡ Your favorites</h2>
+        <p>Your personal collection of colors.</p>
       </div>
-      <button class="small-btn" onclick="makePalette()">↻ Refresh</button>
+      <button class="btn" id="clear">Clear all</button>
     </div>
-    <div class="palette" id="palette"></div>
+
+    <div class="swatches" id="favorites">
+      <div class="empty">Your saved colors will appear here.</div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <div>
-        <h2>♡ Your Favorites</h2>
-        <div class="section-description">Your personal collection of colors.</div>
-      </div>
-      <button class="small-btn" onclick="clearFavorites()">Clear all</button>
-    </div>
-    <div class="favorites" id="favorites"></div>
-  </section>
-
-  <footer class="footer">
-    COLORGEN ✦ MADE FOR CREATIVE MINDS
+  <footer>
+    Made with <span>✦ creativity</span> · ColorGen © 2026
   </footer>
-</main>
+
+</div>
 
 <div class="toast" id="toast">Color copied!</div>
 
 <script>
+const preview = document.getElementById("preview");
+const hexText = document.getElementById("hex");
+const favoritesBox = document.getElementById("favorites");
+const toast = document.getElementById("toast");
+
 let currentColor = "#8B5CF6";
 let favorites = [];
 
-try {
-  favorites = JSON.parse(localStorage.getItem("colorgen-favorites")) || [];
-  if (!Array.isArray(favorites)) favorites = [];
-} catch (error) {
-  favorites = [];
-}
-
 function randomColor() {
   return "#" + Math.floor(Math.random() * 16777216)
-    .toString(16).padStart(6, "0").toUpperCase();
+    .toString(16)
+    .padStart(6, "0")
+    .toUpperCase();
 }
 
-function rgb(hex) {
-  return {
-    r: parseInt(hex.slice(1, 3), 16),
-    g: parseInt(hex.slice(3, 5), 16),
-    b: parseInt(hex.slice(5, 7), 16)
-  };
+function setColor(color) {
+  currentColor = color;
+  preview.style.background = color;
+  hexText.textContent = color;
 }
 
-function colorName(hex) {
-  const c = rgb(hex);
-  const names = [
-    ["Pink", 255, 105, 180],
-    ["Coral", 255, 127, 80],
-    ["Orange", 255, 165, 0],
-    ["Gold", 255, 215, 0],
-    ["Lime", 150, 240, 70],
-    ["Mint", 80, 230, 180],
-    ["Cyan", 0, 210, 240],
-    ["Sky Blue", 90, 170, 255],
-    ["Blue", 65, 100, 255],
-    ["Violet", 145, 85, 245],
-    ["Purple", 190, 90, 255],
-    ["Rose", 255, 100, 145]
-  ];
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1800);
+}
 
-  let best = names[0];
-  let distance = Infinity;
+document.getElementById("generate").addEventListener("click", () => {
+  let color = randomColor();
 
-  for (const n of names) {
-    const d = (c.r - n[1]) ** 2 +
-              (c.g - n[2]) ** 2 +
-              (c.b - n[3]) ** 2;
-    if (d < distance) {
-      distance = d;
-      best = n;
-    }
+  while (color === currentColor) {
+    color = randomColor();
   }
 
-  return best[0];
-}
+  setColor(color);
+});
 
-function updateColor() {
-  document.getElementById("preview").style.background = currentColor;
-  document.getElementById("hexCode").textContent = currentColor;
-  document.getElementById("colorName").textContent = colorName(currentColor);
-  const c = rgb(currentColor);
-  document.getElementById("rgbCode").textContent =
-    `RGB ${c.r}, ${c.g}, ${c.b}`;
-}
-
-function generateColor() {
-  currentColor = randomColor();
-  updateColor();
-  makePalette();
-}
-
-async function copyColor() {
+document.getElementById("copy").addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(currentColor);
-    showToast("Copied " + currentColor + " ✓");
-  } catch (error) {
-    showToast("Your HEX code is " + currentColor);
+    showToast("✓ " + currentColor + " copied!");
+  } catch {
+    const input = document.createElement("textarea");
+    input.value = currentColor;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    input.remove();
+    showToast("✓ " + currentColor + " copied!");
   }
-}
+});
 
-document.getElementById("hexCode").addEventListener("click", copyColor);
-
-function addFavorite() {
+document.getElementById("save").addEventListener("click", () => {
   if (favorites.includes(currentColor)) {
-    showToast("Already in your favorites!");
+    showToast("This color is already saved!");
     return;
   }
 
   favorites.unshift(currentColor);
-  saveFavorites();
   renderFavorites();
-  showToast("Color saved to favorites ♥");
-}
-
-function saveFavorites() {
-  try {
-    localStorage.setItem("colorgen-favorites", JSON.stringify(favorites));
-  } catch (error) {
-    showToast("Could not save favorites in this browser.");
-  }
-}
+  showToast("♡ Color saved!");
+});
 
 function renderFavorites() {
-  const container = document.getElementById("favorites");
-  container.innerHTML = "";
+  favoritesBox.innerHTML = "";
 
   if (favorites.length === 0) {
-    container.innerHTML =
-      '<div class="empty">No favorites yet. Save a color you love!</div>';
+    favoritesBox.innerHTML =
+      '<div class="empty">Your saved colors will appear here.</div>';
     return;
   }
 
-  favorites.forEach((hex, index) => {
-    const card = document.createElement("div");
-    card.className = "swatch";
+  favorites.forEach(color => {
+    const button = document.createElement("button");
+    button.className = "swatch";
+    button.innerHTML =
+      '<span class="swatch-color"></span>' +
+      '<span class="swatch-code"></span>';
 
-    const swatch = document.createElement("div");
-    swatch.className = "swatch-color";
-    swatch.style.background = hex;
+    button.querySelector(".swatch-color").style.background = color;
+    button.querySelector(".swatch-code").textContent = color;
+    button.title = "Click to use " + color;
 
-    const label = document.createElement("div");
-    label.className = "swatch-label";
-    label.textContent = hex;
-
-    const name = document.createElement("small");
-    name.textContent = colorName(hex);
-    label.appendChild(name);
-
-    const select = document.createElement("button");
-    select.className = "remove-fav";
-    select.textContent = "Use this color";
-    select.onclick = () => {
-      currentColor = hex;
-      updateColor();
-      showToast(hex + " selected");
+    button.addEventListener("click", () => {
+      setColor(color);
       window.scrollTo({ top: 0, behavior: "smooth" });
-    };
+    });
 
-    const remove = document.createElement("button");
-    remove.className = "remove-fav";
-    remove.textContent = "✕ Remove";
-    remove.onclick = () => {
-      favorites.splice(index, 1);
-      saveFavorites();
-      renderFavorites();
-    };
-
-    card.append(swatch, label, select, remove);
-    container.appendChild(card);
+    favoritesBox.appendChild(button);
   });
 }
 
-function clearFavorites() {
-  if (favorites.length === 0) {
-    showToast("Your favorites are already empty.");
-    return;
-  }
+document.getElementById("clear").addEventListener("click", () => {
+  favorites = [];
+  renderFavorites();
+  showToast("Favorites cleared!");
+});
 
-  if (confirm("Remove all your favorite colors?")) {
-    favorites = [];
-    saveFavorites();
-    renderFavorites();
-    showToast("Favorites cleared.");
-  }
-}
-
-function makePalette() {
-  const container = document.getElementById("palette");
-  container.innerHTML = "";
-
-  const base = rgb(currentColor);
-  const hue = rgbToHsl(base.r, base.g, base.b).h;
-
-  for (let i = 0; i < 5; i++) {
-    const h = (hue + i * 48) % 360;
-    const s = 65 + Math.floor(Math.random() * 20);
-    const l = 42 + Math.floor(Math.random() * 20);
-    const hex = hslToHex(h, s, l);
-
-    const card = document.createElement("button");
-    card.className = "swatch";
-    card.title = "Click to use " + hex;
-
-    const color = document.createElement("span");
-    color.className = "swatch-color";
-    color.style.background = hex;
-
-    const label = document.createElement("span");
-    label.className = "swatch-label";
-    label.textContent = hex;
-
-    const hint = document.createElement("small");
-    hint.textContent = "Click to use";
-    label.appendChild(hint);
-
-    card.append(color, label);
-    card.onclick = () => {
-      currentColor = hex;
-      updateColor();
-      showToast(hex + " selected");
-    };
-
-    container.appendChild(card);
-  }
-}
-
-function rgbToHsl(r, g, b) {
-  r /= 255; g /= 255; b /= 255;
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  let h = 0, s = 0;
-  const l = (max + min) / 2;
-
-  if (max !== min) {
-    const d = max - min;
-    s = l > .5 ? d / (2 - max - min) : d / (max + min);
-
-    switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
-    }
-    h *= 60;
-  }
-
-  return { h, s: s * 100, l: l * 100 };
-}
-
-function hslToHex(h, s, l) {
-  s /= 100; l /= 100;
-  const k = n => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = n => l - a * Math.max(-1, Math.min(k(n) - 3,
-                        Math.min(9 - k(n), 1)));
-  return "#" + [f(0), f(8), f(4)]
-    .map(v => Math.round(v * 255).toString(16).padStart(2, "0"))
-    .join("").toUpperCase();
-}
-
-let toastTimer;
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
-}
-
-updateColor();
-makePalette();
-renderFavorites();
+setColor(currentColor);
 </script>
-
 </body>
 </html>
